@@ -15,10 +15,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         Debug.Log(gameObject.name + " terkena damage! Sisa HP: " + currentHealth);
 
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth <= 0) Die();
+        
     }
 
     void Die()

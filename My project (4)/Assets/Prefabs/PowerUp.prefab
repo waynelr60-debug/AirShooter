@@ -137,8 +137,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3644373140881963903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22114b1686f15774fb5524a29229e949, type: 3}
+  m_Script: {fileID: 11500000, guid: 56e2d24c1249a1344b57ef3b93a3d08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpItem
-  duration: 5
+  lifeTime: 8
   bonusDamage: 2
+  duration: 5

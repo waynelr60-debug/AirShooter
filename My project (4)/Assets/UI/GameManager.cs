@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro; // WAJIB ADA untuk akses teks TMP
 
 public class GameManager : MonoBehaviour
 {
@@ -7,12 +8,21 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject gameOverPanel;
+    public TMP_Text scoreText; // <--- Variabel baru buat teks skor
 
     private bool isGameOver = false;
+    private int currentScore = 0;
 
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
+        // BARU: Reset skor jadi 0 saat mulai
+        currentScore = 0;
+        UpdateScoreUI();
     }
 
     void Update()
@@ -24,16 +34,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddScore(int amount)
+    {
+        if (isGameOver) return; // Kalau game over, gak bisa nambah skor
+
+        currentScore += amount;
+        UpdateScoreUI();
+    }
+
+    // BARU: Fungsi update tampilan teks
+    void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + currentScore.ToString();
+        }
+    }
+
     public void GameOver()
     {
         isGameOver = true;
-
-        // tampilkan UI game over
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
-
-        // berhentiin semua movement (optional)
-        Time.timeScale = 0f;   // pause game
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     void RestartGame()

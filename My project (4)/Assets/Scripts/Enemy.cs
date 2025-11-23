@@ -3,13 +3,12 @@
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    public float speed = 2f;
-    public int health = 3;
+    public float speed = 2f;    
 
     [Header("Shooting Settings")]
     public GameObject bulletPrefab;
     public Transform shootPoint;
-    public float fireRate = 1.5f;
+    public float fireRate = 2f;
     private float fireTimer = 0f;
 
     [Header("Movement Route")]
@@ -17,6 +16,8 @@ public class Enemy : MonoBehaviour
     public bool moveLeft = false;
     public bool moveDown = true;
     public bool moveCircle = false;
+
+    public float bottomBound = -8f;
 
     void Update()
     {
@@ -28,11 +29,14 @@ public class Enemy : MonoBehaviour
 
         // --- Shooting ---
         fireTimer += Time.deltaTime;
+        //print("Enemy.cs: deltaTime: " + Time.deltaTime);
         if (fireTimer >= fireRate)
         {
             Shoot();
             fireTimer = 0f;
         }
+        if (transform.position.y < bottomBound) Destroy(gameObject);
+        
     }
 
     void Shoot()
@@ -46,12 +50,5 @@ public class Enemy : MonoBehaviour
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
     }
 
-    public void TakeDamage(int amount)
-    {
-        health -= amount;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
+    
 }
